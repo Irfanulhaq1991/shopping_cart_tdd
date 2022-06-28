@@ -5,11 +5,17 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import com.google.common.truth.Truth.assertThat
 import com.irfan.sadaparcel.UiStates
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 // Acceptance Test
 class InventoryShould {
-    val inventorySpy = InventorySpyUiController().apply { viewModel = InventoryViewModel() }
+    private lateinit var inventorySpy:InventorySpyUiController
+    @BeforeEach
+    fun setup(){
+        inventorySpy = InventorySpyUiController().apply { viewModel = InventoryViewModel() }
+        inventorySpy.onCreate()
+    }
 
     @Test
     fun loadInventoryItems() {
