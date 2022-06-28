@@ -1,11 +1,9 @@
-package com.example.tdd_android
+package com.irfan.sadaparcel
 
 import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.arch.core.executor.TaskExecutor
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.setMain
+import kotlinx.coroutines.test.*
 import org.junit.jupiter.api.extension.AfterEachCallback
 import org.junit.jupiter.api.extension.BeforeEachCallback
 import org.junit.jupiter.api.extension.ExtensionContext
@@ -14,7 +12,7 @@ class InstantTaskExecutorExtension:BeforeEachCallback,AfterEachCallback {
 
     @Suppress("FunctionName")
     override fun beforeEach(context: ExtensionContext?) {
-        Dispatchers.setMain(TestCoroutineDispatcher())
+        Dispatchers.setMain(StandardTestDispatcher())
         ArchTaskExecutor.getInstance().setDelegate(object : TaskExecutor() {
             override fun executeOnDiskIO(runnable: Runnable) {
                 runnable.run()
