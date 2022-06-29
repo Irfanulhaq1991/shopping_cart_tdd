@@ -5,12 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.irfan.sadaparcel.UiStates
 
-class InventoryViewModel:ViewModel() {
+
+class InventoryViewModel(private val inventoryRepo:  InventoryRepository):ViewModel() {
     private val _inventoryLiveData = MutableLiveData<UiStates>()
     val inventoryLiveData:LiveData<UiStates> = _inventoryLiveData
-
     fun fetchInventory() {
-        TODO("Not yet implemented")
+        inventoryRepo.fetchInventoryItems()
     }
 
 }
