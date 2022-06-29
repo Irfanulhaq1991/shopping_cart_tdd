@@ -10,7 +10,9 @@ class InventoryViewModel(private val inventoryRepo:  InventoryRepository):ViewMo
     private val _inventoryLiveData = MutableLiveData<UiStates>()
     val inventoryLiveData:LiveData<UiStates> = _inventoryLiveData
     fun fetchInventory() {
-        inventoryRepo.fetchInventoryItems()
+        _inventoryLiveData.value = UiStates.Loading
+        _inventoryLiveData.value = inventoryRepo.fetchInventoryItems()
+        _inventoryLiveData.value = UiStates.HideLoading
     }
 
 }

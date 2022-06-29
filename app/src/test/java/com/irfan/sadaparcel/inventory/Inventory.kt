@@ -15,14 +15,14 @@ import java.util.concurrent.TimeUnit
 // Acceptance Test
 @ExtendWith(InstantTaskExecutorExtension::class)
 class InventoryShould {
+    private val inventoryItems =  listOf(
+        InventoryItemWithQuantity(InventoryItem("1","item1","Description",2.1),1),
+        InventoryItemWithQuantity(InventoryItem("1","item1","Description",2.1),1),
+    )
+
     private lateinit var inventorySpy:InventorySpyUiController
     @BeforeEach
     fun setup(){
-        val inventoryItems =  listOf(
-            InventoryItemWithQuantity(InventoryItem("1","item1","Description",2.1),1),
-            InventoryItemWithQuantity(InventoryItem("1","item1","Description",2.1),1),
-        )
-
         val inventoryService = InventoryRemoteService(FakeInventoryRemoteApiWithData(inventoryItems))
         val inventoryRepo = InventoryRepository(inventoryService)
         val inventoryViewModel = InventoryViewModel(inventoryRepo)
@@ -33,7 +33,7 @@ class InventoryShould {
     @Test
     fun loadInventoryItems() {
         //Given
-        val expected = listOf(UiStates.Loading, UiStates.Success(), UiStates.HideLoading)
+        val expected = listOf(UiStates.Loading, UiStates.Success(inventoryItems), UiStates.HideLoading)
         // When
         inventorySpy.fetchItems()
 
@@ -48,9 +48,6 @@ class InventorySpyUiController():LifecycleOwner {
     val uiStates = mutableListOf<UiStates>()
     lateinit var viewModel: InventoryViewModel
 
-    private val countDownLatch: CountDownLatch = CountDownLatch(1)
-
-
     private val registry:LifecycleRegistry by lazy { LifecycleRegistry(this)}
     override fun getLifecycle() = registry
 
@@ -64,6 +61,5 @@ class InventorySpyUiController():LifecycleOwner {
 
     fun fetchItems() {
         viewModel.fetchInventory()
-        countDownLatch.await(100, TimeUnit.MILLISECONDS)
     }
 }
