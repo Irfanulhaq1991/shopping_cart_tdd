@@ -4,11 +4,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import com.google.common.truth.Truth.assertThat
+import com.irfan.sadaparcel.InstantTaskExecutorExtension
 import com.irfan.sadaparcel.UiStates
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
 // Acceptance Test
+@ExtendWith(InstantTaskExecutorExtension::class)
 class InventoryShould {
     private lateinit var inventorySpy:InventorySpyUiController
     @BeforeEach
@@ -20,11 +23,11 @@ class InventoryShould {
     @Test
     fun loadInventoryItems() {
         //Given
-        val expected = listOf("ShowLoading", "Success", "HidLoading")
-        // when
+        val expected = listOf(UiStates.Loading, UiStates.Success(), UiStates.HideLoading)
+        // When
         inventorySpy.fetchItems()
 
-        //then
+        //Then
         val result = inventorySpy.uiStates
         assertThat(result).isEqualTo(expected)
     }
