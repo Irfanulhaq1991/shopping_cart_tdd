@@ -56,4 +56,11 @@ class InventoryRepositoryShould {
         val result = inventoryRepository.fetchInventoryItems()
         assertThat(result).isEqualTo(expected)
     }
+    /*
+         - I have custom exception to decouple the application from network, server, database and etc errors
+         - More test could be added to validate and guard the application  network, server, database and etc errors
+     */
+
+
+
 }
