@@ -48,5 +48,8 @@ class InventoryRepositoryShould {
         assertThat(result).isEqualTo(expected)
     }
 
-  
+    @Test
+    fun returnNoInternetError(){
+        assertThat(UiStates.NoInernetError).isEqualTo(inventoryRepository.fetchInventoryItems())
+    }
 }
