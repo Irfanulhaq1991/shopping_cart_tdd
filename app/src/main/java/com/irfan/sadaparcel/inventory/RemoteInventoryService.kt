@@ -1,7 +1,7 @@
 package com.irfan.sadaparcel.inventory
 
-class RemoteInventoryService:InventoryService {
+class RemoteInventoryService():InventoryService {
     override fun getInventoryItems(): List<String> {
-            return emptyList()
+        TODO("Not implemented")
      }
 }

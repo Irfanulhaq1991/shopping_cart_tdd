@@ -2,18 +2,42 @@ package com.irfan.sadaparcel.inventory
 
 import com.google.common.truth.Truth.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
-class RemoteInventoryServiceShould {
-    private val remoteInventoryService  = RemoteInventoryService()
+abstract class RemoteInventoryServiceShould {
 
     @Test
     fun returnNoInventoryItems(){
-        assertThat(remoteInventoryService.getInventoryItems()).isEqualTo(emptyList<String>())
+        val expected = emptyList<String>()
+        val inventoryService  = withDataItems(expected)
+        val result = inventoryService.getInventoryItems()
+        assertThat(result).isEqualTo(expected)
     }
    @Test
    fun returnOneInventoryItems(){
-       assertThat(remoteInventoryService.getInventoryItems()).isEqualTo(listOf("Item1"))
-
+       val expected = listOf("Item1")
+       val inventoryService  = withDataItems(expected)
+       val result = inventoryService.getInventoryItems()
+       assertThat(result).isEqualTo(expected)
    }
+    @Test
+    fun returnManyInventoryItems(){
+        val expected = listOf("Item1","item2")
+        val inventoryService  = withDataItems(expected)
+        val result = inventoryService.getInventoryItems()
+        assertThat(result).isEqualTo(expected)
+    }
 
+    @Test
+    fun throwAppException(){
+       val inventoryService = withAppException()
+       assertThrows<AppException> {
+           inventoryService.getInventoryItems()
+       }
+    }
+
+
+
+   abstract fun withDataItems(data: List<String>): InventoryService
+   abstract fun withAppException():InventoryService
 }

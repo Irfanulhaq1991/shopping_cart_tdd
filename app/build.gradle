@@ -55,6 +55,16 @@ dependencies {
     def truth_version = "5.8.2"
     def testcore_version = "1.4.0"
     def coroutin_version = "1.6.0"
+    def retrofit = "2.9.0"
+    def okttp3 = "4.7.2"
+
+
+    //Networking
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+    implementation "com.squareup.okhttp3:okhttp:$okttp3"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okttp3"
+
 
 
     /*---Android Jetpack Architecture  dependencies---*/

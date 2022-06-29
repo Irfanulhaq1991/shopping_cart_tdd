@@ -1,6 +1,5 @@
 package com.irfan.sadaparcel.inventory
 
-import android.widget.RemoteViewsService
 import com.irfan.sadaparcel.UiStates
 
 class InventoryRepository(private val inventoryService: InventoryService) {
@@ -11,8 +10,8 @@ class InventoryRepository(private val inventoryService: InventoryService) {
                 UiStates.Success(inventoryItems, "no data")
             else
                 UiStates.Success(inventoryItems)
-        } catch (noInternetException: NoInternetException) {
-             UiStates.NoInternetError
+        } catch (e: AppException) {
+             UiStates.Error(e.message)
         }
     }
 
