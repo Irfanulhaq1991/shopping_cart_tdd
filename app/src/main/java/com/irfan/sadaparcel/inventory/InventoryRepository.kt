@@ -5,8 +5,7 @@ import com.irfan.sadaparcel.UiStates
 
 class InventoryRepository() {
     fun fetchInventoryItems(): UiStates.Success {
-        return UiStates.Success("no data", emptyList<String>())
+        return UiStates.Success( emptyList<String>(),"no data")
     }
-
 
 }

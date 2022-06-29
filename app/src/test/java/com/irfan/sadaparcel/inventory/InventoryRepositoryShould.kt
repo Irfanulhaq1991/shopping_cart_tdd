@@ -23,9 +23,14 @@ class InventoryRepositoryShould {
 
     @Test
     fun returnNoDataSuccessState(){
-        val expected = UiStates.Success("no data", emptyList<String>())
+        val expected = UiStates.Success( emptyList<String>(),"no data")
         val result =  inventoryRepository.fetchInventoryItems()
         assertThat(result).isEqualTo(expected)
     }
-    // More triangulation here
+    @Test
+    fun returnOneItemSuccessState(){
+        val expected  = UiStates.Success(listOf("Hello"))
+        val result = inventoryRepository.fetchInventoryItems()
+        assertThat(result).isEqualTo(expected)
+    }
 }
