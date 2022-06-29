@@ -7,6 +7,8 @@ class RemoteInventoryServiceShould {
 
     @Test
     fun returnNoInventoryItems(){
-        assertThat(RemoteInventoryService().getInventoryItems()).isEqualTo(emptyList<String>())
+        val remoteInventoryService  = RemoteInventoryService()
+        assertThat(remoteInventoryService.getInventoryItems()).isEqualTo(emptyList<String>())
     }
+    // I may convert this class contract tests to accommodate test for other inventory services like caches, database
 }
