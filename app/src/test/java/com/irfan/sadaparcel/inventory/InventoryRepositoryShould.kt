@@ -41,8 +41,12 @@ class InventoryRepositoryShould {
 
     @Test
     fun returnManyItemSuccessState(){
-        val expected  = UiStates.Success(listOf("Hello"))
+        val expected  = UiStates.Success(listOf("Hello","Hi"))
+        every { remoteInventoryService.getInventoryItems() } answers { listOf("Hello","Hi") }
+
         val result = inventoryRepository.fetchInventoryItems()
         assertThat(result).isEqualTo(expected)
     }
+
+  
 }
