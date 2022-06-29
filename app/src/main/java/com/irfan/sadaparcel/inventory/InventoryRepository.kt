@@ -3,9 +3,13 @@ package com.irfan.sadaparcel.inventory
 import android.widget.RemoteViewsService
 import com.irfan.sadaparcel.UiStates
 
-class InventoryRepository() {
+class InventoryRepository(private val inventoryService: InventoryService) {
     fun fetchInventoryItems(): UiStates.Success {
-        return UiStates.Success( emptyList<String>(),"no data")
+        val inventoryItems = inventoryService.getInventoryItems()
+       return if(inventoryItems.isEmpty())
+            UiStates.Success(inventoryItems, "no data")
+        else
+            UiStates.Success(inventoryItems)
     }
 
 }

@@ -14,21 +14,33 @@ import org.junit.runner.RunWith
 @ExtendWith(MockKExtension::class)
 class InventoryRepositoryShould {
 
-
+    @MockK
+    private lateinit var remoteInventoryService:InventoryService
     private lateinit var inventoryRepository: InventoryRepository
     @BeforeEach
     fun setup(){
-         inventoryRepository = InventoryRepository()
+         inventoryRepository = InventoryRepository(remoteInventoryService)
     }
 
     @Test
     fun returnNoDataSuccessState(){
         val expected = UiStates.Success( emptyList<String>(),"no data")
+        every { remoteInventoryService.getInventoryItems() } answers { emptyList()}
+
         val result =  inventoryRepository.fetchInventoryItems()
         assertThat(result).isEqualTo(expected)
     }
     @Test
     fun returnOneItemSuccessState(){
+        val expected  = UiStates.Success(listOf("Hello"))
+        every { remoteInventoryService.getInventoryItems() } answers { listOf("Hello") }
+
+        val result = inventoryRepository.fetchInventoryItems()
+        assertThat(result).isEqualTo(expected)
+    }
+
+    @Test
+    fun returnManyItemSuccessState(){
         val expected  = UiStates.Success(listOf("Hello"))
         val result = inventoryRepository.fetchInventoryItems()
         assertThat(result).isEqualTo(expected)

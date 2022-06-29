@@ -16,7 +16,8 @@ class InventoryShould {
     private lateinit var inventorySpy:InventorySpyUiController
     @BeforeEach
     fun setup(){
-        val inventoryRepo = InventoryRepository()
+        val inventoryService = RemoteInventoryService()
+        val inventoryRepo = InventoryRepository(inventoryService)
         val inventoryViewModel = InventoryViewModel(inventoryRepo)
         inventorySpy = InventorySpyUiController().apply { viewModel = inventoryViewModel }
         inventorySpy.onCreate()

@@ -1,5 +1,5 @@
 package com.irfan.sadaparcel.inventory
 
-interface InventService {
+interface InventoryService {
  fun getInventoryItems():List<String>
 }
