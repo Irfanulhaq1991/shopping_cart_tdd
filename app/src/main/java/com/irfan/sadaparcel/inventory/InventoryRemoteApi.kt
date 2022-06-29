@@ -6,5 +6,5 @@ import retrofit2.http.GET
 
 interface InventoryRemoteApi {
     @GET("/items")
-    suspend fun getInventoryItems(): Response<ResponseBody>
+    fun getInventoryItems(): Response<ResponseBody>
 }

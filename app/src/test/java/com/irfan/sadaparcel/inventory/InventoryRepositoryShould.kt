@@ -24,7 +24,7 @@ class InventoryRepositoryShould {
 
     @Test
     fun returnNoDataSuccessState(){
-        val expected = UiStates.Success( emptyList<String>(),"no data")
+        val expected = UiStates.Success( emptyList<InventoryItemWithQuantity>(),"no data")
         every { remoteInventoryService.getInventoryItems() } answers { emptyList()}
 
         val result =  inventoryRepository.fetchInventoryItems()
@@ -32,24 +32,37 @@ class InventoryRepositoryShould {
     }
     @Test
     fun returnOneItemSuccessState(){
-        val expected  = UiStates.Success(listOf("Hello"))
-        every { remoteInventoryService.getInventoryItems() } answers { listOf("Hello") }
+        //Given
+        val inventoryItems =  listOf(
+            InventoryItemWithQuantity(InventoryItem("1","item1","Description",2.1),1),
+        )
+        val expected  = UiStates.Success(inventoryItems)
+        every { remoteInventoryService.getInventoryItems() } answers { inventoryItems}
 
+        //When
         val result = inventoryRepository.fetchInventoryItems()
+        // Then
         assertThat(result).isEqualTo(expected)
     }
 
     @Test
     fun returnManyItemSuccessState(){
-        val expected  = UiStates.Success(listOf("Hello","Hi"))
-        every { remoteInventoryService.getInventoryItems() } answers { listOf("Hello","Hi") }
+        //Given
+        val inventoryItems =  listOf(
+            InventoryItemWithQuantity(InventoryItem("1","item1","Description",2.1),1),
+            InventoryItemWithQuantity(InventoryItem("2","item2","Description2",2.2),2)
+        )
+        val expected  = UiStates.Success(inventoryItems)
+        every { remoteInventoryService.getInventoryItems() } answers { inventoryItems}
 
+        //When
         val result = inventoryRepository.fetchInventoryItems()
+        // Then
         assertThat(result).isEqualTo(expected)
     }
 
     @Test
-    fun returnNoInternetError(){
+    fun returnErrorWithNoInternetMessage(){
         val expected  = UiStates.Error("No Internet")
         every { remoteInventoryService.getInventoryItems() } throws AppException("No Internet")
 
