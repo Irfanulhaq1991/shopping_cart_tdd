@@ -1,8 +1,12 @@
 package com.irfan.sadaparcel.inventory
 
-class InventoryRepository {
-    fun fetchInventoryItems() {
-        TODO("Not yet implemented")
+import android.widget.RemoteViewsService
+import com.irfan.sadaparcel.UiStates
+
+class InventoryRepository() {
+    fun fetchInventoryItems(): UiStates.Success {
+        return UiStates.Success("no data", emptyList<String>())
     }
+
 
 }
