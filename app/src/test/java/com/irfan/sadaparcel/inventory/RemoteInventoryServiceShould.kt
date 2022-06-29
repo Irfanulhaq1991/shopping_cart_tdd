@@ -4,11 +4,16 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.jupiter.api.Test
 
 class RemoteInventoryServiceShould {
+    private val remoteInventoryService  = RemoteInventoryService()
 
     @Test
     fun returnNoInventoryItems(){
-        val remoteInventoryService  = RemoteInventoryService()
         assertThat(remoteInventoryService.getInventoryItems()).isEqualTo(emptyList<String>())
     }
-    // I may convert this class contract tests to accommodate test for other inventory services like caches, database
+   @Test
+   fun returnOneInventoryItems(){
+       assertThat(remoteInventoryService.getInventoryItems()).isEqualTo(listOf("Item1"))
+
+   }
+
 }
