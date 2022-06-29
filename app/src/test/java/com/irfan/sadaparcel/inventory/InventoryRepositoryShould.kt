@@ -50,6 +50,10 @@ class InventoryRepositoryShould {
 
     @Test
     fun returnNoInternetError(){
-        assertThat(UiStates.NoInernetError).isEqualTo(inventoryRepository.fetchInventoryItems())
+        val expected  = UiStates.NoInternetError
+        every { remoteInventoryService.getInventoryItems() } throws NoInternetException()
+
+        val result = inventoryRepository.fetchInventoryItems()
+        assertThat(result).isEqualTo(expected)
     }
 }
