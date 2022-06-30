@@ -20,4 +20,8 @@ class ShoppingCartViewModelShould {
         viewModel.fetchCartItems()
         verify {cartRepo.fetchCartItems()}
     }
+    @Test
+    fun addItemToShoppingCart(){
+        verify { cartRepo.addItemToShoppingCart() }
+    }
 }
