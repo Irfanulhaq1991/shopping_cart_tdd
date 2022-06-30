@@ -62,5 +62,10 @@ class ShoppingCartRepositoryShould {
         assertThat(result).isEqualTo(UiState.Success(listOf(cartItems[0])))
     }
 
+    @Test
+    fun returnSuccessStateWithManyCartItem() {
+        assertThat(result).isEqualTo(UiState.Success(cartItems))
+    }
+
 
 }
