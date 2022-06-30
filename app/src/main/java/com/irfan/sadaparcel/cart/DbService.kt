@@ -7,5 +7,9 @@ class DbService {
         TODO("Not yet implemented")
     }
 
+    fun addItemToShoppingCart(inventoryItemWithQuantity: InventoryItemWithQuantity):Boolean {
+        TODO("Not yet implemented")
+    }
+
 
 }

@@ -18,7 +18,8 @@ class ShoppingCartRepository(private val dbService: DbService) {
         }
     }
 
-    fun addItemToShoppingCart(inventoryItemWithQuantity: InventoryItemWithQuantity) {
+    fun addItemToShoppingCart(inventoryItemWithQuantity: InventoryItemWithQuantity): UiState.Success {
+        return UiState.Success(message = "Added")
     }
 
 
