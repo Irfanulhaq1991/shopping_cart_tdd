@@ -3,6 +3,7 @@ package com.irfan.sadaparcel.cart
 import com.google.common.truth.Truth.assertThat
 import com.irfan.sadaparcel.InstantTaskExecutorExtension
 import com.irfan.sadaparcel.UiState
+import com.irfan.sadaparcel.inventory.AppException
 import com.irfan.sadaparcel.inventory.InventoryItem
 import com.irfan.sadaparcel.inventory.InventoryItemWithQuantity
 import io.mockk.every
@@ -70,7 +71,9 @@ class ShoppingCartRepositoryShould {
     }
     @Test
     fun returnErrorState(){
+        every { dbService.fetchCartItems() } throws AppException()
+
         val result = cartRepo.fetchCartItems()
-        assertThat(result).isEqualTo(UiState.Error())
+        assertThat(result).isEqualTo(UiState.Error("Error Occurred"))
     }
 }
