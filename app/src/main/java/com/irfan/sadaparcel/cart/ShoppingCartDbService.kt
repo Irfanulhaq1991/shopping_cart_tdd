@@ -4,7 +4,7 @@ import com.irfan.sadaparcel.inventory.InventoryItemWithQuantity
 
 class ShoppingCartDbService {
     fun fetchCartItems():List<InventoryItemWithQuantity> {
-        TODO("Not yet implemented")
+        return emptyList()
     }
 
     fun addItemToShoppingCart(inventoryItemWithQuantity: InventoryItemWithQuantity):Boolean {
