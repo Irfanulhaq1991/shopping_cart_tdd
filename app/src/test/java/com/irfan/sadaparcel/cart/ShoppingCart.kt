@@ -8,7 +8,6 @@ import com.irfan.sadaparcel.InstantTaskExecutorExtension
 import com.irfan.sadaparcel.UiState
 import com.irfan.sadaparcel.inventory.InventoryItem
 import com.irfan.sadaparcel.inventory.InventoryItemWithQuantity
-import com.irfan.sadaparcel.inventory.viewModelFactory
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -19,7 +18,8 @@ class ShoppingCartShould {
 
     @BeforeEach
     fun setup() {
-        val cartRepository = ShoppingCartRepository()
+        val dbService = DbService()
+        val cartRepository = ShoppingCartRepository(dbService)
         val cartViewModel = ShoppingCartViewModel(cartRepository)
         uiController = ShoppingCartSpyUiController().apply { viewModel = cartViewModel }
         uiController.onCreate()
