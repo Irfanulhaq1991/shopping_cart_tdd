@@ -64,8 +64,8 @@ class ShoppingCartRepositoryShould {
 
     @Test
     fun returnSuccessStateWithManyCartItem() {
+        every { dbService.fetchCartItems() } answers { cartItems }
+        val result = cartRepo.fetchCartItems()
         assertThat(result).isEqualTo(UiState.Success(cartItems))
     }
-
-
 }
