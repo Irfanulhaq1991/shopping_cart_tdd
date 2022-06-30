@@ -1,18 +1,23 @@
 package com.irfan.sadaparcel.cart
 
+import com.irfan.sadaparcel.InstantTaskExecutorExtension
 import com.irfan.sadaparcel.inventory.InventoryItem
 import com.irfan.sadaparcel.inventory.InventoryItemWithQuantity
+import io.mockk.impl.annotations.RelaxedMockK
+import io.mockk.junit5.MockKExtension
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
+@ExtendWith(InstantTaskExecutorExtension::class, MockKExtension::class)
 class ShoppingCartViewModelShould {
 
+    @RelaxedMockK
     private lateinit var cartRepo: ShoppingCartRepository
     private lateinit var viewModel: ShoppingCartViewModel
     @BeforeEach
     fun setup(){
-        cartRepo = ShoppingCartRepository()
         viewModel = ShoppingCartViewModel(cartRepo)
     }
     @Test
