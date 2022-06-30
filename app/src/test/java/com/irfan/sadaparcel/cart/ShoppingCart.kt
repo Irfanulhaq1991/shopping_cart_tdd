@@ -19,7 +19,8 @@ class ShoppingCartShould {
 
     @BeforeEach
     fun setup() {
-        val cartViewModel = ShoppingCartViewModel()
+        val cartRepository = ShoppingCartRepository()
+        val cartViewModel = ShoppingCartViewModel(cartRepository)
         uiController = ShoppingCartSpyUiController().apply { viewModel = cartViewModel }
         uiController.onCreate()
     }
