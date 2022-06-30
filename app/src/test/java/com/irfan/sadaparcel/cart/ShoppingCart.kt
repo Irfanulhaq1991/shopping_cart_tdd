@@ -27,11 +27,11 @@ class ShoppingCartShould {
 
     @Test
     fun fetchCartItems() {
-        val shoppingCartItems =   listOf(
+        val inventoryItemsWithQuantity =   listOf(
             InventoryItemWithQuantity(InventoryItem("1","item1","Description",2.1),1),
             InventoryItemWithQuantity(InventoryItem("1","item1","Description",2.1),1),
         )
-        val expected = listOf(UiState.ShowLoading, UiState.Success(shoppingCartItems), UiState.HideLoading)
+        val expected = listOf(UiState.ShowLoading, UiState.Success(inventoryItemsWithQuantity), UiState.HideLoading)
         uiController.fetchCartItems()
 
         val result = uiController.uiState

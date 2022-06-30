@@ -1,7 +1,7 @@
 package com.irfan.sadaparcel.cart
 
-import androidx.lifecycle.ViewModel
-import com.google.common.truth.Truth.assertThat
+import com.irfan.sadaparcel.inventory.InventoryItem
+import com.irfan.sadaparcel.inventory.InventoryItemWithQuantity
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -22,6 +22,9 @@ class ShoppingCartViewModelShould {
     }
     @Test
     fun addItemToShoppingCart(){
-        verify { cartRepo.addItemToShoppingCart() }
+      val inventoryItemWithQuantity =  InventoryItemWithQuantity(InventoryItem("1","item1","Description",2.1),1)
+
+        viewModel.addItemToShoppingCart(inventoryItemWithQuantity)
+        verify { cartRepo.addItemToShoppingCart(inventoryItemWithQuantity) }
     }
 }

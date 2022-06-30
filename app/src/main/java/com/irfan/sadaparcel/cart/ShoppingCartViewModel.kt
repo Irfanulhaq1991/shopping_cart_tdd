@@ -15,7 +15,7 @@ class ShoppingCartViewModel(private val shoppingCartRepository: ShoppingCartRepo
     }
 
     fun addItemToShoppingCart(inventoryItemWithQuantity: InventoryItemWithQuantity) {
-        TODO("Not yet implemented")
+         shoppingCartRepository.addItemToShoppingCart(inventoryItemWithQuantity)
     }
 
 }
