@@ -1,14 +1,12 @@
 package com.irfan.sadaparcel.inventory
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.irfan.sadaparcel.UiState
+import com.irfan.sadaparcel.inventory.InventoryRepository
 import kotlinx.coroutines.launch
 
 
-class InventoryViewModel(private val inventoryRepo:  InventoryRepository):ViewModel() {
+class InventoryViewModel(private val inventoryRepo: InventoryRepository):ViewModel() {
     private val _inventoryLiveData = MutableLiveData<UiState>()
     val inventoryLiveData:LiveData<UiState> = _inventoryLiveData
     fun fetchInventory() {
@@ -23,3 +21,8 @@ class InventoryViewModel(private val inventoryRepo:  InventoryRepository):ViewMo
     }
 
 }
+
+inline fun <VM : ViewModel> viewModelFactory(crossinline f: () -> VM) =
+    object : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(aClass: Class<T>):T = f() as T
+    }

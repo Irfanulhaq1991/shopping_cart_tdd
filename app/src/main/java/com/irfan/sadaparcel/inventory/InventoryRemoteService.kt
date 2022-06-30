@@ -6,7 +6,7 @@ import okhttp3.ResponseBody
 import retrofit2.Response
 import java.util.concurrent.TimeoutException
 
-class InventoryRemoteService(private val inventoApi: InventoryRemoteApi) :InventoryService {
+class InventoryRemoteService(private val inventoApi: InventoryRemoteApi) : InventoryService {
     override suspend fun getInventoryItems(): List<InventoryItemWithQuantity> {
         return try {
             val apiResponse = inventoApi.getInventoryItems()
