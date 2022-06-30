@@ -2,10 +2,11 @@ package com.irfan.sadaparcel.cart
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.irfan.sadaparcel.UiState
 import com.irfan.sadaparcel.inventory.InventoryItemWithQuantity
 
-class ShoppingCartViewModel {
+class ShoppingCartViewModel:ViewModel() {
     private val _shoppingCartLiveData = MutableLiveData<UiState>()
     val shoppingCartLiveData:LiveData<UiState> = _shoppingCartLiveData
 
