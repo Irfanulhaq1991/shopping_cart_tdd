@@ -1,10 +1,11 @@
 package com.irfan.sadaparcel.cart
 
+import com.irfan.sadaparcel.UiState
 import com.irfan.sadaparcel.inventory.InventoryItemWithQuantity
 
 class ShoppingCartRepository {
-    fun fetchCartItems() {
-        TODO("Not yet implemented")
+    fun fetchCartItems(): UiState.Success {
+      return UiState.Success(message = "No data")
     }
 
     fun addItemToShoppingCart(inventoryItemWithQuantity: InventoryItemWithQuantity) {
