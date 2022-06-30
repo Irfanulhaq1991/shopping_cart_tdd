@@ -5,7 +5,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import com.google.common.truth.Truth.assertThat
 import com.irfan.sadaparcel.InstantTaskExecutorExtension
-import com.irfan.sadaparcel.UiStates
+import com.irfan.sadaparcel.UiState
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -33,7 +33,7 @@ class InventoryShould {
     @Test
     fun loadInventoryItems() {
         //Given
-        val expected = listOf(UiStates.Loading, UiStates.Success(inventoryItems), UiStates.HideLoading)
+        val expected = listOf(UiState.ShowLoading, UiState.Success(inventoryItems), UiState.HideLoading)
         // When
         inventorySpy.fetchItems()
 
@@ -45,8 +45,9 @@ class InventoryShould {
 
 //https://blog.cleancoder.com/uncle-bob/2014/05/14/TheLittleMocker.html
 class InventorySpyUiController:LifecycleOwner {
-    val uiStates = mutableListOf<UiStates>()
+    val uiStates = mutableListOf<UiState>()
     lateinit var viewModel: InventoryViewModel
+    private val countDownLatch: CountDownLatch = CountDownLatch(1)
 
     private val registry:LifecycleRegistry by lazy { LifecycleRegistry(this)}
     override fun getLifecycle() = registry
@@ -55,11 +56,15 @@ class InventorySpyUiController:LifecycleOwner {
         registry.currentState = Lifecycle.State.STARTED
         viewModel.inventoryLiveData.observe(this,{
             uiStates.add(it)
+            if(it == UiState.HideLoading)
+                countDownLatch.countDown()
         })
     }
 
 
     fun fetchItems() {
         viewModel.fetchInventory()
+        countDownLatch.await(300, TimeUnit.MILLISECONDS)
+
     }
 }

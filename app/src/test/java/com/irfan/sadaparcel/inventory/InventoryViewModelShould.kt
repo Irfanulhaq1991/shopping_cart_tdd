@@ -25,7 +25,7 @@ class InventoryViewModelShould {
     }
 
     @Test
-    fun fetchInventoryItems()= runTest{
+    fun fetchInventoryItems(){
         inventoryViewModel.fetchInventory()
         coVerify { inventoryRepo.fetchInventoryItems() }
     }
