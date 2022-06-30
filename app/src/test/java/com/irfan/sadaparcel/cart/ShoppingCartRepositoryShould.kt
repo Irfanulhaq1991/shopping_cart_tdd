@@ -1,7 +1,6 @@
 package com.irfan.sadaparcel.cart
 
 import com.google.common.truth.Truth.assertThat
-import com.irfan.sadaparcel.InstantTaskExecutorExtension
 import com.irfan.sadaparcel.UiState
 import com.irfan.sadaparcel.inventory.AppException
 import com.irfan.sadaparcel.inventory.InventoryItem
@@ -17,7 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class ShoppingCartRepositoryShould {
 
     @RelaxedMockK
-    private lateinit var dbService: DbService
+    private lateinit var shoppingCartDbService: ShoppingCartDbService
     private lateinit var cartRepo: ShoppingCartRepository
 
     private val cartItems = listOf(
@@ -46,32 +45,32 @@ class ShoppingCartRepositoryShould {
 
     @BeforeEach
     fun setup() {
-        cartRepo = ShoppingCartRepository(dbService)
+        cartRepo = ShoppingCartRepository(shoppingCartDbService)
     }
 
     @Test
     fun returnSuccessStateWithNoDataMessage() {
-        every { dbService.fetchCartItems() } answers { emptyList() }
+        every { shoppingCartDbService.fetchCartItems() } answers { emptyList() }
         val result = cartRepo.fetchCartItems()
         assertThat(result).isEqualTo(UiState.Success(message = "No Data"))
     }
 
     @Test
     fun returnSuccessStateWithOneCartItem() {
-        every { dbService.fetchCartItems() } answers { listOf(cartItems[0]) }
+        every { shoppingCartDbService.fetchCartItems() } answers { listOf(cartItems[0]) }
         val result = cartRepo.fetchCartItems()
         assertThat(result).isEqualTo(UiState.Success(listOf(cartItems[0])))
     }
 
     @Test
     fun returnSuccessStateWithManyCartItem() {
-        every { dbService.fetchCartItems() } answers { cartItems }
+        every { shoppingCartDbService.fetchCartItems() } answers { cartItems }
         val result = cartRepo.fetchCartItems()
         assertThat(result).isEqualTo(UiState.Success(cartItems))
     }
     @Test
     fun returnErrorState(){
-        every { dbService.fetchCartItems() } throws AppException()
+        every { shoppingCartDbService.fetchCartItems() } throws AppException()
 
         val result = cartRepo.fetchCartItems()
         assertThat(result).isEqualTo(UiState.Error("Error Occurred"))
@@ -81,14 +80,14 @@ class ShoppingCartRepositoryShould {
 
     @Test
     fun returnSuccessStateAddedMessage(){
-        every { dbService.addItemToShoppingCart(cartItems[0]) } returns true
+        every { shoppingCartDbService.addItemToShoppingCart(cartItems[0]) } returns true
         val result = cartRepo.addItemToShoppingCart(cartItems[0])
         assertThat(result).isEqualTo(UiState.Success(message = "Added"))
     }
 
     @Test
     fun returnErrorStateWithLimitExceedMessage(){
-        every { dbService.addItemToShoppingCart(cartItems[0]) } throws  AppException("Cart limit exceeded")
+        every { shoppingCartDbService.addItemToShoppingCart(cartItems[0]) } throws  AppException("Cart limit exceeded")
         val result = cartRepo.addItemToShoppingCart(cartItems[0])
         assertThat(result).isEqualTo(UiState.Error(message = "Cart limit exceeded"))
     }

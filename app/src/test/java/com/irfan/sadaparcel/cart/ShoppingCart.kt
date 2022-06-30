@@ -18,7 +18,7 @@ class ShoppingCartShould {
 
     @BeforeEach
     fun setup() {
-        val dbService = DbService()
+        val dbService = ShoppingCartDbService()
         val cartRepository = ShoppingCartRepository(dbService)
         val cartViewModel = ShoppingCartViewModel(cartRepository)
         uiController = ShoppingCartSpyUiController().apply { viewModel = cartViewModel }

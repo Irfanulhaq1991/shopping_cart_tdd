@@ -2,7 +2,7 @@ package com.irfan.sadaparcel.cart
 
 import com.irfan.sadaparcel.inventory.InventoryItemWithQuantity
 
-class DbService {
+class ShoppingCartDbService {
     fun fetchCartItems():List<InventoryItemWithQuantity> {
         TODO("Not yet implemented")
     }
@@ -10,6 +10,5 @@ class DbService {
     fun addItemToShoppingCart(inventoryItemWithQuantity: InventoryItemWithQuantity):Boolean {
         TODO("Not yet implemented")
     }
-
 
 }

@@ -4,11 +4,11 @@ import com.irfan.sadaparcel.UiState
 import com.irfan.sadaparcel.inventory.AppException
 import com.irfan.sadaparcel.inventory.InventoryItemWithQuantity
 
-class ShoppingCartRepository(private val dbService: DbService) {
+class ShoppingCartRepository(private val shoppingCartDbService: ShoppingCartDbService) {
 
     fun fetchCartItems(): UiState {
         return try {
-            val cartItems = dbService.fetchCartItems()
+            val cartItems = shoppingCartDbService.fetchCartItems()
             if (cartItems.isEmpty())
                 UiState.Success(message = "No Data")
             else
@@ -20,7 +20,7 @@ class ShoppingCartRepository(private val dbService: DbService) {
 
     fun addItemToShoppingCart(inventoryItemWithQuantity: InventoryItemWithQuantity): UiState {
         return try {
-            val isAdditionSuccessful  = dbService.addItemToShoppingCart(inventoryItemWithQuantity)
+            val isAdditionSuccessful  = shoppingCartDbService.addItemToShoppingCart(inventoryItemWithQuantity)
             if(isAdditionSuccessful)
                 UiState.Success(message = "Added")
             else
