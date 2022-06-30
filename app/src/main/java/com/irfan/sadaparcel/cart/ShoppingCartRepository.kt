@@ -19,7 +19,6 @@ class ShoppingCartRepository(private val dbService: DbService) {
     }
 
     fun addItemToShoppingCart(inventoryItemWithQuantity: InventoryItemWithQuantity) {
-        TODO("Not yet implemented")
     }
 
 

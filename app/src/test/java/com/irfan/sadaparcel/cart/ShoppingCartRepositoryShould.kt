@@ -76,4 +76,13 @@ class ShoppingCartRepositoryShould {
         val result = cartRepo.fetchCartItems()
         assertThat(result).isEqualTo(UiState.Error("Error Occurred"))
     }
+
+    // adding to card
+
+    @Test
+    fun returnSuccessStateAddedMessage(){
+
+        assertThat(result).isEqualTo(UiState.Success(message = "Added"))
+    }
+
 }
