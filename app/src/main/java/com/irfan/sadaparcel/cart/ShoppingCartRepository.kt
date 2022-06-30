@@ -18,8 +18,16 @@ class ShoppingCartRepository(private val dbService: DbService) {
         }
     }
 
-    fun addItemToShoppingCart(inventoryItemWithQuantity: InventoryItemWithQuantity): UiState.Success {
-        return UiState.Success(message = "Added")
+    fun addItemToShoppingCart(inventoryItemWithQuantity: InventoryItemWithQuantity): UiState {
+        return try {
+            val isAdditionSuccessful  = dbService.addItemToShoppingCart(inventoryItemWithQuantity)
+            if(isAdditionSuccessful)
+                UiState.Success(message = "Added")
+            else
+                UiState.Error("failed to add")
+        }catch (e:AppException){
+            UiState.Error(e.message)
+        }
     }
 
 

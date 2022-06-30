@@ -85,8 +85,10 @@ class ShoppingCartRepositoryShould {
         val result = cartRepo.addItemToShoppingCart(cartItems[0])
         assertThat(result).isEqualTo(UiState.Success(message = "Added"))
     }
+
     @Test
     fun returnErrorStateWithLimitExceedMessage(){
+        every { dbService.addItemToShoppingCart(cartItems[0]) } throws  AppException("Cart limit exceeded")
         val result = cartRepo.addItemToShoppingCart(cartItems[0])
         assertThat(result).isEqualTo(UiState.Error(message = "Cart limit exceeded"))
     }
