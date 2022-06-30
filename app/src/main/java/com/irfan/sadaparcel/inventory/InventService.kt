@@ -1,5 +1,5 @@
 package com.irfan.sadaparcel.inventory
 
 interface InventoryService {
- fun getInventoryItems():List<InventoryItemWithQuantity>
+ suspend fun getInventoryItems():List<InventoryItemWithQuantity>
 }

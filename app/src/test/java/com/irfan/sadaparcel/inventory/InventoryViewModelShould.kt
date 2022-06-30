@@ -1,9 +1,11 @@
 package com.irfan.sadaparcel.inventory
 
 import com.irfan.sadaparcel.InstantTaskExecutorExtension
+import io.mockk.coVerify
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.junit5.MockKExtension
 import io.mockk.verify
+import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -23,8 +25,8 @@ class InventoryViewModelShould {
     }
 
     @Test
-    fun fetchInventoryItems(){
+    fun fetchInventoryItems()= runTest{
         inventoryViewModel.fetchInventory()
-        verify { inventoryRepo.fetchInventoryItems() }
+        coVerify { inventoryRepo.fetchInventoryItems() }
     }
 }

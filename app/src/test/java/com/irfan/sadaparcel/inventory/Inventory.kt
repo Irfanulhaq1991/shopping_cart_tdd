@@ -44,7 +44,7 @@ class InventoryShould {
 }
 
 //https://blog.cleancoder.com/uncle-bob/2014/05/14/TheLittleMocker.html
-class InventorySpyUiController():LifecycleOwner {
+class InventorySpyUiController:LifecycleOwner {
     val uiStates = mutableListOf<UiStates>()
     lateinit var viewModel: InventoryViewModel
 

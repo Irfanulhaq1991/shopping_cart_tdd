@@ -22,7 +22,7 @@ class InventoryRemoteServiceShould : InventoryServiceContractTests() {
 
 class FakeInventoryRemoteApiWithData(private val inventoryItems: List<InventoryItemWithQuantity>) :
     InventoryRemoteApi {
-    override fun getInventoryItems(): Response<ResponseBody> {
+    override suspend fun getInventoryItems(): Response<ResponseBody> {
         return Response.success(createResponseBody())
     }
 
@@ -35,7 +35,7 @@ class FakeInventoryRemoteApiWithData(private val inventoryItems: List<InventoryI
 }
 
 class FakeInventoryRemoteApiWithNoInternetError() : InventoryRemoteApi {
-    override fun getInventoryItems(): Response<ResponseBody> {
+    override suspend fun getInventoryItems(): Response<ResponseBody> {
         throw TimeoutException()
     }
 

@@ -2,10 +2,12 @@ package com.irfan.sadaparcel.inventory
 
 import com.google.common.truth.Truth.assertThat
 import com.irfan.sadaparcel.UiStates
+import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.junit5.MockKExtension
+import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -23,21 +25,21 @@ class InventoryRepositoryShould {
     }
 
     @Test
-    fun returnNoDataSuccessState(){
+    fun returnNoDataSuccessState()= runTest{
         val expected = UiStates.Success( emptyList<InventoryItemWithQuantity>(),"no data")
-        every { remoteInventoryService.getInventoryItems() } answers { emptyList()}
+        coEvery { remoteInventoryService.getInventoryItems() } answers { emptyList()}
 
         val result =  inventoryRepository.fetchInventoryItems()
         assertThat(result).isEqualTo(expected)
     }
     @Test
-    fun returnOneItemSuccessState(){
+    fun returnOneItemSuccessState()= runTest{
         //Given
         val inventoryItems =  listOf(
             InventoryItemWithQuantity(InventoryItem("1","item1","Description",2.1),1),
         )
         val expected  = UiStates.Success(inventoryItems)
-        every { remoteInventoryService.getInventoryItems() } answers { inventoryItems}
+        coEvery { remoteInventoryService.getInventoryItems() } answers { inventoryItems}
 
         //When
         val result = inventoryRepository.fetchInventoryItems()
@@ -46,14 +48,14 @@ class InventoryRepositoryShould {
     }
 
     @Test
-    fun returnManyItemSuccessState(){
+    fun returnManyItemSuccessState()= runTest{
         //Given
         val inventoryItems =  listOf(
             InventoryItemWithQuantity(InventoryItem("1","item1","Description",2.1),1),
             InventoryItemWithQuantity(InventoryItem("2","item2","Description2",2.2),2)
         )
         val expected  = UiStates.Success(inventoryItems)
-        every { remoteInventoryService.getInventoryItems() } answers { inventoryItems}
+        coEvery { remoteInventoryService.getInventoryItems() } answers { inventoryItems}
 
         //When
         val result = inventoryRepository.fetchInventoryItems()
@@ -62,9 +64,9 @@ class InventoryRepositoryShould {
     }
 
     @Test
-    fun returnErrorWithNoInternetMessage(){
+    fun returnErrorWithNoInternetMessage()= runTest{
         val expected  = UiStates.Error("No Internet")
-        every { remoteInventoryService.getInventoryItems() } throws AppException("No Internet")
+        coEvery { remoteInventoryService.getInventoryItems() } throws AppException("No Internet")
 
         val result = inventoryRepository.fetchInventoryItems()
         assertThat(result).isEqualTo(expected)
