@@ -10,7 +10,6 @@ class ShoppingCartRepositoryShould{
 
     @Test
     fun returnSuccessStateWithNoDataMessage(){
-
         val result = ShoppingCartRepository().fetchCartItems()
         assertThat(result).isEqualTo(UiState.Success(message = "No data"))
     }
