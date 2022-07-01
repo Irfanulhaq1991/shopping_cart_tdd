@@ -7,7 +7,7 @@ import com.irfan.sadaparcel.inventory.InventoryItemWithQuantity
 class ShoppingCartDbService(private val dbApiShoppingCart:ShoppingCartDatabaseApi,private val limit:Int = 50): ShoppingCartService {
 
 
-    override fun fetchCartItems():List<InventoryItemWithQuantity> {
+    override suspend fun fetchCartItems():List<InventoryItemWithQuantity> {
         try {
             return dbApiShoppingCart.getAll()
         }catch (e:SQLiteException){
@@ -16,7 +16,7 @@ class ShoppingCartDbService(private val dbApiShoppingCart:ShoppingCartDatabaseAp
 
     }
 
-    override fun addItemToShoppingCart(inventoryItemWithQuantity: InventoryItemWithQuantity):Boolean {
+    override suspend fun addItemToShoppingCart(inventoryItemWithQuantity: InventoryItemWithQuantity):Boolean {
         try {
             val cartItemCount = dbApiShoppingCart.getAll().size
             if (cartItemCount == limit) throw AppException("Cart limit exceeded")

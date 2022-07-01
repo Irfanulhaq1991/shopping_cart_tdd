@@ -4,8 +4,8 @@ import com.irfan.sadaparcel.inventory.InventoryItemWithQuantity
 
 interface ShoppingCartService {
 
-    fun fetchCartItems():List<InventoryItemWithQuantity>
+   suspend fun fetchCartItems():List<InventoryItemWithQuantity>
 
-    fun addItemToShoppingCart(inventoryItemWithQuantity: InventoryItemWithQuantity):Boolean
+   suspend fun addItemToShoppingCart(inventoryItemWithQuantity: InventoryItemWithQuantity):Boolean
 
 }

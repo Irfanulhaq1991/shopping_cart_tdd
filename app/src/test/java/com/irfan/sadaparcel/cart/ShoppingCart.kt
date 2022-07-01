@@ -20,7 +20,8 @@ class ShoppingCartShould {
 
     @BeforeEach
     fun setup() {
-        val dbService = ShoppingCartDbService(FakeInMemoryShoppingCartDatabaseApi(DummyDataProvider.data))
+        val dbService =
+            ShoppingCartDbService(FakeInMemoryShoppingCartDatabaseApi(DummyDataProvider.data))
         val cartRepository = ShoppingCartRepository(dbService)
         val cartViewModel = ShoppingCartViewModel(cartRepository)
         uiController = ShoppingCartSpyUiController().apply { viewModel = cartViewModel }
@@ -30,14 +31,19 @@ class ShoppingCartShould {
     @Test
     fun fetchCartItems() {
 
-        val expected = listOf(UiState.ShowLoading, UiState.Success(DummyDataProvider.data), UiState.HideLoading)
+        val expected = listOf(
+            UiState.ShowLoading,
+            UiState.Success(DummyDataProvider.data),
+            UiState.HideLoading
+        )
         uiController.fetchCartItems()
 
         val result = uiController.uiState
         assertThat(result).isEqualTo(expected)
     }
+
     @Test
-    fun addItemToCart(){
+    fun addItemToCart() {
         val shoppingCartItems = DummyDataProvider.data[0]
 
         val expected = listOf(
@@ -67,7 +73,7 @@ class ShoppingCartSpyUiController : LifecycleOwner {
         registry.currentState = Lifecycle.State.STARTED
         viewModel.shoppingCartLiveData.observe(this, {
             uiState.add(it)
-            if(it == UiState.HideLoading)
+            if (it == UiState.HideLoading)
                 countDownLatch.countDown()
         })
     }
@@ -78,7 +84,9 @@ class ShoppingCartSpyUiController : LifecycleOwner {
     }
 
     fun addItemToShoppingCart(inventoryItemWithQuantity: InventoryItemWithQuantity) {
-            viewModel.addItemToShoppingCart(inventoryItemWithQuantity)
+        viewModel.addItemToShoppingCart(inventoryItemWithQuantity)
+        countDownLatch.await(300, TimeUnit.MILLISECONDS)
+
     }
 
 }

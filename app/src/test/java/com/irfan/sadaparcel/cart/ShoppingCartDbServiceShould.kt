@@ -21,11 +21,11 @@ class ShoppingCartDbServiceShould : ShoppingCartServiceContractTest() {
     private fun createApiWithData(data: List<InventoryItemWithQuantity>):ShoppingCartDatabaseApi{
        return object : ShoppingCartDatabaseApi {
             val fakeDb = mutableListOf<InventoryItemWithQuantity>().apply { addAll(data) }
-            override fun getAll(): List<InventoryItemWithQuantity> {
+            override suspend fun getAll(): List<InventoryItemWithQuantity> {
                 return fakeDb
             }
 
-            override fun add(itemWithQuantity: InventoryItemWithQuantity): Int {
+            override suspend fun add(itemWithQuantity: InventoryItemWithQuantity): Int {
                 fakeDb.add(itemWithQuantity)
                 return fakeDb.indexOf(itemWithQuantity)
             }
@@ -34,11 +34,11 @@ class ShoppingCartDbServiceShould : ShoppingCartServiceContractTest() {
 
     private fun createApiWithExceptionThrowing():ShoppingCartDatabaseApi {
         return object : ShoppingCartDatabaseApi {
-            override fun getAll(): List<InventoryItemWithQuantity> {
+            override suspend fun getAll(): List<InventoryItemWithQuantity> {
                 throw SQLiteException()
             }
 
-            override fun add(itemWithQuantity: InventoryItemWithQuantity): Int {
+            override suspend fun add(itemWithQuantity: InventoryItemWithQuantity): Int {
                 throw SQLiteException()
             }
 

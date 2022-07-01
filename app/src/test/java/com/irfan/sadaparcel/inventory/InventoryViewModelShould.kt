@@ -26,4 +26,5 @@ class InventoryViewModelShould {
         inventoryViewModel.fetchInventory()
         coVerify { inventoryRepo.fetchInventoryItems() }
     }
+
 }
