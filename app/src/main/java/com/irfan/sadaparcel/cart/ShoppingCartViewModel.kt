@@ -4,12 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.irfan.sadaparcel.BaseViewModel
 import com.irfan.sadaparcel.UiState
 import com.irfan.sadaparcel.inventory.InventoryItemWithQuantity
 import kotlinx.coroutines.launch
 
 class ShoppingCartViewModel(private val shoppingCartRepository: ShoppingCartRepository) :
-    ViewModel() {
+    BaseViewModel() {
     private val _shoppingCartLiveData = MutableLiveData<UiState>()
     val shoppingCartLiveData: LiveData<UiState> = _shoppingCartLiveData
 
