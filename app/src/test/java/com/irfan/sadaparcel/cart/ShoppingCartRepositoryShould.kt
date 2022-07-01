@@ -1,10 +1,9 @@
 package com.irfan.sadaparcel.cart
 
 import com.google.common.truth.Truth.assertThat
+import com.irfan.sadaparcel.DummyDataProvider
 import com.irfan.sadaparcel.UiState
 import com.irfan.sadaparcel.inventory.AppException
-import com.irfan.sadaparcel.inventory.InventoryItem
-import com.irfan.sadaparcel.inventory.InventoryItemWithQuantity
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.junit5.MockKExtension
@@ -18,30 +17,7 @@ class ShoppingCartRepositoryShould {
     @RelaxedMockK
     private lateinit var shoppingCartDbService: ShoppingCartDbService
     private lateinit var cartRepo: ShoppingCartRepository
-
-    private val cartItems = listOf(
-        InventoryItemWithQuantity(
-            InventoryItem(
-                "1", "item1",
-                "Description",
-                2.1
-            ), 1
-        ),
-        InventoryItemWithQuantity(
-            InventoryItem(
-                "1", "item1",
-                "Description",
-                2.1
-            ), 1
-        ),
-        InventoryItemWithQuantity(
-            InventoryItem(
-                "1", "item1",
-                "Description",
-                2.1
-            ), 1
-        )
-    )
+    private val cartItems = DummyDataProvider.data
 
     @BeforeEach
     fun setup() {

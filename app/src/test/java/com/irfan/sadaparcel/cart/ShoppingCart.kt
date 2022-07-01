@@ -4,6 +4,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import com.google.common.truth.Truth.assertThat
+import com.irfan.sadaparcel.DummyDataProvider
 import com.irfan.sadaparcel.InstantTaskExecutorExtension
 import com.irfan.sadaparcel.UiState
 import com.irfan.sadaparcel.inventory.InventoryItem
@@ -18,7 +19,17 @@ class ShoppingCartShould {
 
     @BeforeEach
     fun setup() {
-        val dbService = ShoppingCartDbService()
+        val dbService = ShoppingCartDbService(object : ShoppingCartDatabaseApi {
+            val fakeDb = mutableListOf<InventoryItemWithQuantity>().apply { addAll(DummyDataProvider.data) }
+            override fun getAll(): List<InventoryItemWithQuantity> {
+                return fakeDb
+            }
+
+            override fun add(itemWithQuantity: InventoryItemWithQuantity): Int {
+                fakeDb.add(itemWithQuantity)
+                return fakeDb.indexOf(itemWithQuantity)
+            }
+        })
         val cartRepository = ShoppingCartRepository(dbService)
         val cartViewModel = ShoppingCartViewModel(cartRepository)
         uiController = ShoppingCartSpyUiController().apply { viewModel = cartViewModel }

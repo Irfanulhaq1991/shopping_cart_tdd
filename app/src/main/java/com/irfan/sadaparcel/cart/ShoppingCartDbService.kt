@@ -2,13 +2,19 @@ package com.irfan.sadaparcel.cart
 
 import com.irfan.sadaparcel.inventory.InventoryItemWithQuantity
 
-class ShoppingCartDbService {
-    fun fetchCartItems():List<InventoryItemWithQuantity> {
-        return emptyList()
+class ShoppingCartDbService(private val dbApiShoppingCart:ShoppingCartDatabaseApi,private val limit:Int = 50): ShoppingCartService {
+
+
+    override fun fetchCartItems():List<InventoryItemWithQuantity> {
+        val cartItems = dbApiShoppingCart.getAll()
+        return cartItems
     }
 
-    fun addItemToShoppingCart(inventoryItemWithQuantity: InventoryItemWithQuantity):Boolean {
-        TODO("Not yet implemented")
+    override fun addItemToShoppingCart(inventoryItemWithQuantity: InventoryItemWithQuantity):Boolean {
+      val cartItemCount = dbApiShoppingCart.getAll().size
+      if(cartItemCount == limit) return false
+       val itemDbId =  dbApiShoppingCart.add(inventoryItemWithQuantity)
+       return itemDbId  >= 0
     }
 
 }
