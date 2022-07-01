@@ -5,15 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageButton
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.irfan.sadaparcel.R
 import com.irfan.sadaparcel.UiState
-import com.irfan.sadaparcel.inventory.*
+import com.irfan.sadaparcel.inventory.InventoryItemWithQuantity
+import com.irfan.sadaparcel.inventory.ItemLayoutManger
+import com.irfan.sadaparcel.inventory.RcAdaptor
 import com.irfan.sadaparcel.viewModelFactory
 import kotlinx.android.synthetic.main.fragment_inventory.*
 
@@ -69,10 +69,15 @@ class ShoppingCartFragment : Fragment(), ItemLayoutManger,Observer<UiState> {
 
     override fun onChanged(uiState: UiState?) {
         when(uiState){
-            is UiState.ShowLoading ->{}
-            is UiState.HideLoading -> {}
+            is UiState.ShowLoading ->{
+                loader.visibility = View.VISIBLE
+            }
+            is UiState.HideLoading -> {
+                loader.visibility = View.GONE
+            }
             is UiState.Success -> { adaptor.setItems(uiState.data) }
-            else ->{}
+            is UiState.Error -> { }
+
         }
     }
 }

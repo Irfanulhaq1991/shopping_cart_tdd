@@ -8,7 +8,8 @@ import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Response
 
-class FakeInventoryRemoteApiWithData( private val inventoryItems:List<InventoryItemWithQuantity> = DummyDataProvider.data) : InventoryRemoteApi {
+class FakeInventoryRemoteApiWithData(private val inventoryItems: List<InventoryItemWithQuantity> = DummyDataProvider.data) :
+    InventoryRemoteApi {
 
     override suspend fun getInventoryItems(): Response<ResponseBody> {
         return Response.success(createResponseBody())

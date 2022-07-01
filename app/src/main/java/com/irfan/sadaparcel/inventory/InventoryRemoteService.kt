@@ -6,10 +6,10 @@ import okhttp3.ResponseBody
 import retrofit2.Response
 import java.util.concurrent.TimeoutException
 
-class InventoryRemoteService(private val inventoApi: InventoryRemoteApi) : InventoryService {
+class InventoryRemoteService(private val inventoryApi: InventoryRemoteApi) : InventoryService {
     override suspend fun getInventoryItems(): List<InventoryItemWithQuantity> {
         return try {
-            val apiResponse = inventoApi.getInventoryItems()
+            val apiResponse = inventoryApi.getInventoryItems()
             if (!apiResponse.isSuccessful) {
                 throw  AppException("Error occurred")
             }
@@ -24,7 +24,8 @@ class InventoryRemoteService(private val inventoApi: InventoryRemoteApi) : Inven
     private fun parsJsonBody(response: Response<ResponseBody>): List<InventoryItemWithQuantity> {
         val typToken = object : TypeToken<List<InventoryItemWithQuantity>>() {}.type
         val gson = Gson()
-        return gson.fromJson(response.body()!!.string(), typToken)
+        val responseBody = response.body()!!.string()
+        return gson.fromJson(responseBody, typToken)
 
     }
 
