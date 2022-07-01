@@ -20,7 +20,7 @@ class ShoppingCartShould {
 
     @BeforeEach
     fun setup() {
-        val dbService = ShoppingCartDbService(FakeInMemoryShoppingCartDatabaseApi())
+        val dbService = ShoppingCartDbService(FakeInMemoryShoppingCartDatabaseApi(DummyDataProvider.data))
         val cartRepository = ShoppingCartRepository(dbService)
         val cartViewModel = ShoppingCartViewModel(cartRepository)
         uiController = ShoppingCartSpyUiController().apply { viewModel = cartViewModel }
