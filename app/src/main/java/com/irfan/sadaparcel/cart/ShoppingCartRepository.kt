@@ -22,7 +22,7 @@ class ShoppingCartRepository(private val shoppingCartDbService: ShoppingCartDbSe
         return try {
             val isAdditionSuccessful  = shoppingCartDbService.addItemToShoppingCart(inventoryItemWithQuantity)
             if(isAdditionSuccessful)
-                UiState.Success(message = "Added")
+                UiState.Success(message = "Item Added to Shopping Cart")
             else
                 UiState.Error("failed to add")
         }catch (e:AppException){

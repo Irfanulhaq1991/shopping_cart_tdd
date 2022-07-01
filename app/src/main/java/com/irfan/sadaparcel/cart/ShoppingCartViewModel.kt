@@ -11,11 +11,15 @@ class ShoppingCartViewModel(private val shoppingCartRepository: ShoppingCartRepo
     val shoppingCartLiveData:LiveData<UiState> = _shoppingCartLiveData
 
     fun fetchCartItems() {
-        shoppingCartRepository.fetchCartItems()
+        _shoppingCartLiveData.value = UiState.ShowLoading
+        _shoppingCartLiveData.value = shoppingCartRepository.fetchCartItems()
+        _shoppingCartLiveData.value = UiState.HideLoading
     }
 
     fun addItemToShoppingCart(inventoryItemWithQuantity: InventoryItemWithQuantity) {
-         shoppingCartRepository.addItemToShoppingCart(inventoryItemWithQuantity)
+        _shoppingCartLiveData.value = UiState.ShowLoading
+        _shoppingCartLiveData.value = shoppingCartRepository.addItemToShoppingCart(inventoryItemWithQuantity)
+        _shoppingCartLiveData.value = UiState.HideLoading
     }
 
 }

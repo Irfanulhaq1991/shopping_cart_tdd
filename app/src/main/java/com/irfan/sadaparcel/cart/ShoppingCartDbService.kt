@@ -19,7 +19,7 @@ class ShoppingCartDbService(private val dbApiShoppingCart:ShoppingCartDatabaseAp
     override fun addItemToShoppingCart(inventoryItemWithQuantity: InventoryItemWithQuantity):Boolean {
         try {
             val cartItemCount = dbApiShoppingCart.getAll().size
-            if (cartItemCount == limit) return false
+            if (cartItemCount == limit) throw AppException("Cart limit exceeded")
             val itemDbId = dbApiShoppingCart.add(inventoryItemWithQuantity)
             return itemDbId >= 0
         }catch (e:SQLiteException){
