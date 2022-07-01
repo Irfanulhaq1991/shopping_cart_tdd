@@ -39,6 +39,20 @@ class ShoppingCartDbServiceShould {
         assertThat(result).isFalse()
     }
 
+   @Test
+   fun throwExceptionWhenFetchingItems(){
+       val cartDbService = withException()
+       assertThrows<AppException> {
+           cartDbService.fetchCartItems()
+       }
+   }
+    @Test
+    fun throwExceptionWhenAddItem(){
+        val cartDbService = withException()
+        assertThrows<AppException> {
+            cartDbService.fetchCartItems()
+        }
+    }
 
 
     fun withData(cartItems: List<InventoryItemWithQuantity>, limit: Int = 50): ShoppingCartService {
