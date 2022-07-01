@@ -1,30 +1,19 @@
 package com.irfan.sadaparcel.inventory
 
-import android.media.Image
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.irfan.sadaparcel.R
 import com.irfan.sadaparcel.UiState
 import kotlinx.android.synthetic.main.fragment_inventory.*
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.ResponseBody
-import okhttp3.ResponseBody.Companion.toResponseBody
-import retrofit2.Response
 
 class InventoryFragment : Fragment(), ItemLayoutManger,Observer<UiState> {
 
@@ -92,32 +81,3 @@ class InventoryFragment : Fragment(), ItemLayoutManger,Observer<UiState> {
     }
 }
 
-class FakeInventoryRemoteApiWithData() : InventoryRemoteApi {
-
-    private val inventoryItems =  listOf(
-        InventoryItemWithQuantity(InventoryItem("1","item1","Description",2.1),1),
-        InventoryItemWithQuantity(InventoryItem("2","item2","Description",2.2),1),
-        InventoryItemWithQuantity(InventoryItem("3","item3","Description",2.4),1),
-        InventoryItemWithQuantity(InventoryItem("4","item4","Description",2.3),1),
-        InventoryItemWithQuantity(InventoryItem("5","item5","Description",2.3),1),
-        InventoryItemWithQuantity(InventoryItem("6","item6","Description",2.3),1),
-        InventoryItemWithQuantity(InventoryItem("7","item7","Description",2.3),1),
-        InventoryItemWithQuantity(InventoryItem("8","item8","Description",2.3),1),
-        InventoryItemWithQuantity(InventoryItem("9","item9","Description",2.3),1),
-        InventoryItemWithQuantity(InventoryItem("10","item10","Description",2.3),1),
-        InventoryItemWithQuantity(InventoryItem("11","item11","Description",2.3),1),
-        InventoryItemWithQuantity(InventoryItem("12","item12","Description",2.3),1),
-        InventoryItemWithQuantity(InventoryItem("13","item13","Description",2.3),1),
-        InventoryItemWithQuantity(InventoryItem("14","item14","Description",2.3),1),
-    )
-    override suspend fun getInventoryItems(): Response<ResponseBody> {
-        return Response.success(createResponseBody())
-    }
-
-    private fun createResponseBody(): ResponseBody {
-        val typToken = object : TypeToken<List<InventoryItemWithQuantity>>() {}.type
-        val jsonData = Gson().toJson(inventoryItems, typToken)
-        val contentType = "application/json; charset=utf-8".toMediaType()
-        return jsonData.toResponseBody(contentType)
-    }
-}

@@ -4,6 +4,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import com.google.common.truth.Truth.assertThat
+import com.irfan.sadaparcel.DummyDataProvider
 import com.irfan.sadaparcel.InstantTaskExecutorExtension
 import com.irfan.sadaparcel.UiState
 import org.junit.jupiter.api.BeforeEach
@@ -15,15 +16,11 @@ import java.util.concurrent.TimeUnit
 // Acceptance Test
 @ExtendWith(InstantTaskExecutorExtension::class)
 class InventoryShould {
-    private val inventoryItems =  listOf(
-        InventoryItemWithQuantity(InventoryItem("1","item1","Description",2.1),1),
-        InventoryItemWithQuantity(InventoryItem("1","item1","Description",2.1),1),
-    )
-
+    private val inventoryItems =  DummyDataProvider.data
     private lateinit var inventorySpy:InventorySpyUiController
     @BeforeEach
     fun setup(){
-        val inventoryService = InventoryRemoteService(FakeInventoryRemoteApiWithData(inventoryItems))
+        val inventoryService = InventoryRemoteService(FakeInventoryRemoteApiWithData())
         val inventoryRepo = InventoryRepository(inventoryService)
         val inventoryViewModel = InventoryViewModel(inventoryRepo)
         inventorySpy = InventorySpyUiController().apply { viewModel = inventoryViewModel }

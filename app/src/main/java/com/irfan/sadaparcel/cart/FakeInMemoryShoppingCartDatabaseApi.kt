@@ -1,6 +1,6 @@
-package com.irfan.sadaparcel
+package com.irfan.sadaparcel.cart
 
-import com.irfan.sadaparcel.cart.ShoppingCartDatabaseApi
+import com.irfan.sadaparcel.DummyDataProvider
 import com.irfan.sadaparcel.inventory.InventoryItemWithQuantity
 
 class FakeInMemoryShoppingCartDatabaseApi: ShoppingCartDatabaseApi {

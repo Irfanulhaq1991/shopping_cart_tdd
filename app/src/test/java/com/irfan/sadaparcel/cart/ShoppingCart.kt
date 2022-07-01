@@ -5,10 +5,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import com.google.common.truth.Truth.assertThat
 import com.irfan.sadaparcel.DummyDataProvider
-import com.irfan.sadaparcel.FakeInMemoryShoppingCartDatabaseApi
 import com.irfan.sadaparcel.InstantTaskExecutorExtension
 import com.irfan.sadaparcel.UiState
-import com.irfan.sadaparcel.inventory.InventoryItem
 import com.irfan.sadaparcel.inventory.InventoryItemWithQuantity
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

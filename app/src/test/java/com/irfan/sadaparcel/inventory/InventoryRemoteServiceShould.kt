@@ -15,26 +15,12 @@ class InventoryRemoteServiceShould : InventoryServiceContractTests() {
     }
 
     override fun withAppException(): InventoryService {
-        return InventoryRemoteService(FakeInventoryRemoteApiWithNoInternetError())
+        return InventoryRemoteService(FakeInventoryRemoteApiWithTimeOutException())
     }
 
 }
 
-class FakeInventoryRemoteApiWithData(private val inventoryItems: List<InventoryItemWithQuantity>) :
-    InventoryRemoteApi {
-    override suspend fun getInventoryItems(): Response<ResponseBody> {
-        return Response.success(createResponseBody())
-    }
-
-    private fun createResponseBody(): ResponseBody {
-        val typToken = object : TypeToken<List<InventoryItemWithQuantity>>() {}.type
-        val jsonData = Gson().toJson(inventoryItems, typToken)
-        val contentType = "application/json; charset=utf-8".toMediaType()
-        return jsonData.toResponseBody(contentType)
-    }
-}
-
-class FakeInventoryRemoteApiWithNoInternetError() : InventoryRemoteApi {
+class FakeInventoryRemoteApiWithTimeOutException() : InventoryRemoteApi {
     override suspend fun getInventoryItems(): Response<ResponseBody> {
         throw TimeoutException()
     }

@@ -58,7 +58,7 @@ class ShoppingCartRepositoryShould {
     fun returnSuccessStateAddedMessage(){
         every { shoppingCartDbService.addItemToShoppingCart(cartItems[0]) } returns true
         val result = cartRepo.addItemToShoppingCart(cartItems[0])
-        assertThat(result).isEqualTo(UiState.Success(message = "Added"))
+        assertThat(result).isEqualTo(UiState.Success(message = "Item Added to Shopping Cart"))
     }
 
     @Test
