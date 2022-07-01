@@ -1,17 +1,17 @@
 
  - Inventory Test cases
-        - Loading Inventory Items when there is zero item
-        - Loading Inventory Items when there is one item
-        - Loading Inventory Items when there are many items
-        - Errors handling
+        - Loading Inventory Items when there is zero item      done
+        - Loading Inventory Items when there is one item       done
+        - Loading Inventory Items when there are many items    done
+        - Errors handling  (One Generic Exception)             done
             - IO
             - Procrastinating the other types
  - Shopping Cart Test Cases
-        - Adding to shopping cart when shopping cart is not full
-        - Adding to shopping cart when when shopping cart is full
-        - Loading when there is zero item
-        - Loading when there is one item
-        - Loading when there are many items Loaded
+        - Adding to shopping cart when shopping cart is not full     done
+        - Adding to shopping cart when when shopping cart is full    done
+        - Loading when there is zero item                            done
+        - Loading when there is one item                             done
+        - Loading when there are many items Loaded                   done
         - Incrementing the item quantity when it is less than in-stock quantity
         - Incrementing the item quantity when it is equal to the in-stock quantity
         - Decrementing the item quantity the quantity when it is greater than zero
