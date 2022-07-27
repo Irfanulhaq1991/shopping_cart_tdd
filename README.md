@@ -1,4 +1,4 @@
-## shopping Cart
+## Shopping Cart
 ### Details
  - Architecture : MVVM
  - publish subscribe: Live Data
