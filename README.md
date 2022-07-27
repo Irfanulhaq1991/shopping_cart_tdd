@@ -16,7 +16,7 @@
  - FakeRemoteApi: Local dummy data is working as mocked response. Another mocked remote version is created at "https://mocki.io". 
  
 #### Note
-    I attempt to achieve MVP(minimum vioble product). Therefore, few test cases and functionalities like incrementing & decrementing is left along with 
+    This is a MVP(minimum vioble product). Therefore, few test cases and functionalities like incrementing & decrementing is left along with 
     Ui like confirm and total ammount.
 
     
